@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Drinks | Little Lemon{% endblock %}
+
+{% block content %}
+
+<!-- 🥤 Hero Section -->
+<section class="menu-hero" style="background-image: url('{% static 'images/drinks-banner.jpg' %}');">
+    <div class="menu-hero-overlay">
+        <h1>Refreshing Drinks</h1>
+        <p>Cool, colorful, and crafted to perfection — enjoy your favorite beverages!</p>
+    </div>
+</section>
+
+<!-- 🧭 Switch Between Menus -->
+<section class="menu-section">
+    <div class="menu-switch">
+        <a href="{% url 'menu' %}" class="switch-btn {% if request.resolver_match.url_name == 'menu' %}active{% endif %}">
+            🍽️ Food Menu
+        </a>
+        <a href="{% url 'drinks' %}" class="switch-btn {% if request.resolver_match.url_name == 'drinks' %}active{% endif %}">
+            🥤 Drinks Menu
+        </a>
+    </div>
+
+    <!-- 🧾 Drinks Grid -->
+    <div class="dishes-container">
+        {% for drink in drinks %}
+            <div class="dish-card">
+                {% if drink.image %}
+                    <img src="{{ drink.image.url }}" alt="{{ drink.name }}">
+                {% endif %}
+                <h4>{{ drink.name }}</h4>
+                <p>{{ drink.description|truncatewords:12 }}</p>
+                <p class="price">${{ drink.price }}</p>
+            </div>
+        {% empty %}
+            <p>No drinks available at the moment.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<style>
+/* 🌄 Hero Section */
+.menu-hero {
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.menu-hero-overlay {
+    background-color: rgba(0, 0, 0, 0.55);
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    border-radius: 10px;
+}
+.menu-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffcc00; /* 🌟 Yellow Heading */
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+.menu-hero p {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+/* 🧭 Navigation Buttons */
+.menu-switch {
+    margin: 40px 0 25px;
+    text-align: center;
+}
+.switch-btn {
+    background: #fff;
+    border: 2px solid #ff6600;
+    color: #ff6600;
+    padding: 10px 25px;
+    border-radius: 25px;
+    margin: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.switch-btn:hover {
+    background: #ff6600;
+    color: #fff;
+}
+.switch-btn.active {
+    background: #ff6600;
+    color: #fff;
+}
+
+/* 🍹 Drinks Grid */
+.dishes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding-bottom: 40px;
+}
+.dish-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 230px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.dish-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+.dish-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.dish-card h4 {
+    margin-top: 10px;
+    color: #222;
+}
+.dish-card p {
+    color: #555;
+    margin: 5px 0;
+}
+.dish-card .price {
+    font-weight: 700;
+    color: #ff6600;
+    font-size: 1.1rem;
+}
+</style>
+
+{% endblock %}

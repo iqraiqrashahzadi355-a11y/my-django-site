@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Menu | Little Lemon{% endblock %}
+
+{% block content %}
+
+<!-- 🍽️ Hero Section -->
+<section class="menu-hero" style="background-image: url('{% static 'images/menu-banner.jpg' %}');">
+    <div class="menu-hero-overlay animate-fade">
+        <h1>Our Delicious Menu</h1>
+        <p>Explore a variety of dishes crafted with love and the freshest ingredients.</p>
+    </div>
+</section>
+
+<!-- 🍴 Main Menu Section -->
+<section class="menu-section">
+    <!-- 🧭 Navigation Buttons -->
+    <div class="menu-switch">
+        <a href="{% url 'menu' %}" 
+           class="switch-btn {% if request.resolver_match.url_name == 'menu' %}active{% endif %}">🍽️ Food Menu</a>
+        <a href="{% url 'drinks' %}" 
+           class="switch-btn drinks-btn {% if request.resolver_match.url_name == 'drinks' %}active{% endif %}">🥤 Drinks Menu</a>
+    </div>
+
+    <!-- 🧾 Category Filter Buttons -->
+    {% if categories %}
+    <div class="category-buttons">
+        <a href="{% url 'menu' %}" class="btn {% if not selected_category %}active{% endif %}">All</a>
+        {% for category in categories %}
+            <a href="?category={{ category.id }}" 
+               class="btn {% if selected_category == category.id %}active{% endif %}">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- 🍲 Dishes Grid -->
+    <div class="dishes-container">
+        {% for dish in dishes %}
+            <div class="dish-card">
+                {% if dish.image %}
+                    <img src="{{ dish.image.url }}" alt="{{ dish.name }}">
+                {% else %}
+                    <img src="{% static 'images/default-dish.jpg' %}" alt="{{ dish.name }}">
+                {% endif %}
+                <h4>{{ dish.name }}</h4>
+                <p>{{ dish.description|truncatewords:12 }}</p>
+                <p class="price">${{ dish.price }}</p>
+            </div>
+        {% empty %}
+            <p>No dishes found in this category.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- 💬 CLIENT REVIEWS SECTION -->
+<section class="reviews">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="reviews-container">
+        {% for review in reviews %}
+            <div class="review-card">
+                {% if review.image %}
+                    <img src="{{ review.image.url }}" alt="{{ review.name }}">
+                {% else %}
+                    <img src="{% static 'images/default-reviewer.png' %}" alt="{{ review.name }}">
+                {% endif %}
+                <div class="review-content">
+                    <h3>{{ review.name }}</h3>
+                    <div class="rating">
+                        {% for i in "12345"|make_list %}
+                            {% if forloop.counter <= review.rating %}
+                                <span>★</span>
+                            {% else %}
+                                <span class="muted">☆</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p>"{{ review.message|truncatechars:150 }}"</p>
+                    <small>{{ review.created_at|date:"F j, Y" }}</small>
+                </div>
+            </div>
+        {% empty %}
+            <p class="no-reviews">No reviews yet. Add reviews from admin panel.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<style>
+/* 🌄 Hero Section */
+.menu-hero {
+    width: 100%;
+    height: 90vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.menu-hero-overlay {
+    background-color: rgba(0,0,0,0.55);
+    text-align: center;
+    padding: 70px 30px;
+    border-radius: 12px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1.5s ease forwards;
+}
+.menu-hero h1 {
+    font-size: 3.8rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffcc00;
+}
+.menu-hero p {
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+/* ✨ Animation */
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 🧭 Navigation */
+.menu-switch {
+    margin: 40px 0 25px;
+    text-align: center;
+}
+.switch-btn {
+    background: #fff;
+    border: 2px solid #ff6600;
+    color: #ff6600;
+    padding: 12px 28px;
+    border-radius: 30px;
+    margin: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.switch-btn:hover, .switch-btn.active {
+    background: #ff6600;
+    color: #fff;
+}
+
+/* 🧾 Category Buttons */
+.category-buttons {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.category-buttons .btn {
+    background: #fff;
+    border: 2px solid #ff6600;
+    color: #ff6600;
+    padding: 8px 22px;
+    border-radius: 25px;
+    margin: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.category-buttons .btn:hover, .category-buttons .active {
+    background: #ff6600;
+    color: #fff;
+}
+
+/* 🍲 Dishes Grid */
+.dishes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+.dish-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.dish-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.dish-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+.dish-card h4 { margin-top: 12px; color: #222; font-size: 1.2rem; }
+.dish-card p { color: #555; margin: 5px 0; }
+.dish-card .price { font-weight: 700; color: #ff6600; font-size: 1.1rem; }
+
+/* 💬 Reviews Section */
+.reviews {
+    background: #fff8e1;
+    padding: 70px 8%;
+    text-align: center;
+}
+.reviews .section-title {
+    margin-bottom: 30px;
+    color: #222;
+    font-size: 2rem;
+}
+.reviews-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+}
+.review-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    width: 310px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: transform .25s;
+}
+.review-card img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.review-content h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #222;
+}
+.rating { color: #ffb400; margin: 4px 0; }
+.rating .muted { color: #ddd; }
+.review-content p {
+    color: #444;
+    font-style: italic;
+    margin: 0 0 5px;
+}
+.review-content small { color: #999; font-size: .85rem; }
+.review-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+@media (max-width:768px) {
+    .reviews-container { flex-direction: column; align-items: center; }
+    .review-card { width: 90%; }
+}
+</style>
+{% endblock %}

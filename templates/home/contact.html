@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section class="contact">
+    <h2>Contact Us</h2>
+    <p class="subtitle">We’d love to hear from you! Get in touch with us.</p>
+
+    <!-- Success Message -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" id="success-msg">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="contact-container">
+        <!-- Contact Form -->
+        <form method="post" class="contact-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="error-msg">{{ form.name.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error-msg">{{ form.email.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.message }}
+                {% if form.message.errors %}
+                    <div class="error-msg">{{ form.message.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <h3>📍 Visit Us</h3>
+            <p>Main Street, Lahore, Pakistan</p>
+            <h3>📞 Call Us</h3>
+            <p>+92 300 1234567</p>
+            <h3>✉ Email Us</h3>
+            <p>support@littlelemon.com</p>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Container */
+.contact {
+    padding: 60px 5%;
+    background: #fafafa;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Headings */
+.contact h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #222;
+    font-weight: 700;
+}
+.contact .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+/* Flex layout */
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Form Styling */
+.contact-form {
+    flex: 1;
+    min-width: 320px;
+    max-width: 480px;
+    background: #fff;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+.contact-form:hover {
+    transform: translateY(-3px);
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #ff6600;
+}
+
+.contact-form button.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: #ff6600;
+    color: #fff;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.contact-form button.btn-submit:hover {
+    background: #e65500;
+    transform: translateY(-2px);
+}
+
+/* Error Messages */
+.error-msg {
+    color: #ff0000;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    text-align: left;
+}
+
+/* Contact Info */
+.contact-info {
+    flex: 1;
+    min-width: 280px;
+    text-align: left;
+    background: #fff;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.contact-info h3 {
+    margin-top: 20px;
+    color: #ff6600;
+}
+.contact-info p {
+    margin: 6px 0;
+    color: #444;
+}
+
+/* Success message fade out */
+#success-msg {
+    margin-bottom: 20px;
+    padding: 12px 18px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 8px;
+    text-align: center;
+    transition: opacity 1s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+
+<script>
+// Fade out success message after 4 seconds
+document.addEventListener("DOMContentLoaded", function() {
+    const msg = document.getElementById("success-msg");
+    if(msg) {
+        setTimeout(() => { msg.style.opacity = "0"; }, 4000);
+    }
+});
+</script>
+
+{% endblock %}

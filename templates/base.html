@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock %} | Little Lemon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #fffef8;
+      color: #333;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    a {
+      text-decoration: none;
+    }
+    ul {
+      list-style: none;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 14px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(6px);
+      transition: all 0.3s ease;
+    }
+    nav.scrolled {
+      background: rgba(0, 0, 0, 0.95);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffcc00;
+      letter-spacing: 1px;
+    }
+    .logo img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      transition: left 0.3s ease;
+    }
+    nav ul li a {
+      color: white;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    nav ul li a:hover {
+      background: #ffcc00;
+      color: #000;
+      transform: translateY(-2px);
+    }
+    nav ul li a.active {
+      background: #ffcc00;
+      color: #000;
+      font-weight: 600;
+    }
+
+    /* ===== MOBILE NAV ===== */
+    .menu-toggle {
+      display: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: -100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        padding: 20px 0;
+      }
+      nav ul.active {
+        left: 0;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      min-height: 70vh;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #111;
+      color: #ddd;
+      padding: 50px 8% 35px;
+      text-align: center;
+      line-height: 1.8;
+      font-size: 0.95rem;
+      position: relative;
+    }
+    footer .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 25px;
+    }
+    footer .footer-box {
+      max-width: 280px;
+    }
+    footer .footer-box h3 {
+      color: #ffcc00;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+    footer a {
+      color: #ddd;
+      transition: 0.3s;
+    }
+    footer a:hover {
+      color: #ffcc00;
+    }
+    footer .social-icons {
+      margin-top: 10px;
+    }
+    footer .social-icons a {
+      margin: 0 6px;
+      font-size: 1.2rem;
+      color: #ffcc00;
+      transition: 0.3s;
+    }
+    footer .social-icons a:hover {
+      color: #fff;
+      transform: scale(1.1);
+    }
+    footer .bottom-text {
+      margin-top: 25px;
+      font-size: 0.9rem;
+      border-top: 1px solid #222;
+      padding-top: 15px;
+    }
+
+    @media (max-width: 600px) {
+      footer .footer-top {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="logo">
+      <img src="{% static 'images/logo.png' %}" alt="Little Lemon Logo" />
+      Little Lemon
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <ul>
+      <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+      <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a></li>
+      <li><a href="{% url 'services' %}" class="{% if request.resolver_match.url_name == 'services' %}active{% endif %}">Services</a></li>
+      <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-box">
+        <h3>Visit Us</h3>
+        <p>📍 19/20 Royal Hibernian Way<br>Dublin 2, Ireland</p>
+        <p>📞 01-905 8777</p>
+      </div>
+      <div class="footer-box">
+        <h3>Contact</h3>
+        <p>✉️ hello@littlelemon.ie</p>
+        <p>🕒 Mon–Sun: 11:00 AM – 11:00 PM</p>
+      </div>
+      <div class="footer-box">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-text">
+      © 2025 <strong>Little Lemon</strong> — Mediterranean Tapas, Wine & Cocktails | Designed with ❤️ by Asma Shahzadi.
+    </div>
+  </footer>
+
+  <!-- ICONS CDN -->
+  <script src="https://kit.fontawesome.com/a2d9b7e64c.js" crossorigin="anonymous"></script>
+
+  <!-- JS -->
+  <script>
+    function toggleMenu() {
+      document.querySelector("nav ul").classList.toggle("active");
+    }
+
+    // Navbar scroll effect
+    window.addEventListener("scroll", function () {
+      const navbar = document.getElementById("navbar");
+      if (window.scrollY > 40) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Book a Table{% endblock %}
+
+{% block content %}
+<section class="booking-section">
+  <h2>Book Your Table</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Submit Booking</button>
+  </form>
+</section>
+
+<style>
+.booking-section {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 30px;
+  background: #fff8e1;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.booking-section h2 {
+  text-align: center;
+  color: #ffcc00;
+  margin-bottom: 20px;
+}
+form .btn {
+  background: #ffcc00;
+  color: #000;
+  padding: 12px 25px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin: 20px auto 0;
+}
+form .btn:hover {
+  background: #ffb300;
+}
+</style>
+{% endblock %}

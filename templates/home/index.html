@@ -1,0 +1,343 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome to Little Lemon{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO SECTION ================= -->
+<section class="hero">
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1>Little Lemon</h1>
+    <p>Authentic Mediterranean dining — where every flavor tells a story.</p>
+    <a href="{% url 'menu' %}" class="btn-primary">Explore Our Menu</a>
+  </div>
+</section>
+
+<!-- ================= ABOUT SECTION ================= -->
+<section class="about">
+  <div class="about-container">
+    <div class="about-text">
+      <h2>Little Lemon, Little Bites</h2>
+      <p>
+        Nestled in the heart of Dublin, Little Lemon brings a symphony of
+        Mediterranean flavors to your table. Enjoy hand-crafted dishes, fresh
+        ingredients, and a cozy, modern ambiance that makes every visit
+        unforgettable.
+      </p>
+      <p>
+        From our aromatic pastas to refreshing cocktails, every bite is
+        designed to transport you straight to the Mediterranean coast.
+      </p>
+    </div>
+    <div class="about-image">
+      <img src="{% static 'images/interior.jpg' %}" alt="Little Lemon Interior" />
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY (STATIC DISHES) ================= -->
+<section class="gallery-section">
+  <h2 class="section-title">Our Dishes</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="{% static 'images/dish1.jpg' %}" alt="Dish 1"></div>
+    <div class="gallery-item"><img src="{% static 'images/dish2.jpg' %}" alt="Dish 2"></div>
+    <div class="gallery-item"><img src="{% static 'images/dish3.jpg' %}" alt="Dish 3"></div>
+    <div class="gallery-item"><img src="{% static 'images/dish4.jpg' %}" alt="Dish 4"></div>
+    <div class="gallery-item"><img src="{% static 'images/dish5.jpg' %}" alt="Dish 5"></div>
+    <div class="gallery-item"><img src="{% static 'images/dish6.jpg' %}" alt="Dish 6"></div>
+  </div>
+</section>
+
+<!-- ================= REFRESHING DRINKS ================= -->
+<section class="gallery-section drinks-gallery">
+  <h2 class="section-title">Refreshing Drinks</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="{% static 'images/drink1.jpg' %}" alt="Drink 1"></div>
+    <div class="gallery-item"><img src="{% static 'images/drink2.jpg' %}" alt="Drink 2"></div>
+    <div class="gallery-item"><img src="{% static 'images/drink3.jpg' %}" alt="Drink 3"></div>
+    <div class="gallery-item"><img src="{% static 'images/drink4.jpg' %}" alt="Drink 4"></div>
+    <div class="gallery-item"><img src="{% static 'images/drink5.jpg' %}" alt="Drink 5"></div>
+    <div class="gallery-item"><img src="{% static 'images/drink6.jpg' %}" alt="Drink 6"></div>
+  </div>
+</section>
+
+<!-- ================= EVENTS SECTION ================= -->
+<section class="events">
+  <div class="overlay"></div>
+  <div class="events-content">
+    <h2>Book Your Table or Private Event</h2>
+    <p>
+      Make your celebrations truly special at Little Lemon — whether it’s an
+      intimate dinner or a vibrant party, we bring flavor and atmosphere that
+      delight all senses.
+    </p>
+    <a href="{% url 'contact' %}" class="btn-secondary">Book a Table</a>
+  </div>
+</section>
+
+<!-- ================= CUSTOMER REVIEWS SECTION ================= -->
+<section class="reviews">
+  <h2 class="section-title">What Our Customers Say</h2>
+  <div class="reviews-container">
+
+    <div class="review-card">
+      <img src="{% static 'images/review1.jpg' %}" alt="Customer 1">
+      <h3>Sarah Johnson</h3>
+      <p>"Absolutely loved the food! The pasta was divine and the service was so warm and welcoming. Definitely coming back!"</p>
+    </div>
+
+    <div class="review-card">
+      <img src="{% static 'images/review2.jpg' %}" alt="Customer 2">
+      <h3>Michael Brown</h3>
+      <p>"The atmosphere here is unbeatable — cozy, relaxing, and full of authentic Mediterranean vibes. Highly recommended!"</p>
+    </div>
+
+    <div class="review-card">
+      <img src="{% static 'images/review3.jpg' %}" alt="Customer 3">
+      <h3>Emma Williams</h3>
+      <p>"Best dining experience in Dublin! Everything from appetizers to desserts was perfectly balanced and flavorful."</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= CSS STYLING ================= -->
+<style>
+/* GENERAL */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fffdf7;
+  color: #222;
+  overflow-x: hidden;
+}
+
+/* HERO SECTION */
+.hero {
+  position: relative;
+  height: 95vh;
+  background: url("{% static 'images/hero-bg.jpg' %}") center/cover no-repeat fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  animation: fadeIn 1.8s ease;
+}
+.hero-content h1 {
+  font-size: 4.5rem;
+  color: #ffcc00;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+.hero-content p {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+}
+.btn-primary {
+  background: #ffcc00;
+  color: #000;
+  padding: 14px 34px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.btn-primary:hover {
+  background: #ffb300;
+  transform: translateY(-4px);
+}
+
+/* ABOUT SECTION */
+.about {
+  background: #fff8e1;
+  padding: 100px 10%;
+}
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 60px;
+  max-width: 1200px;
+  margin: auto;
+}
+.about-text {
+  flex: 1 1 45%;
+  animation: slideUp 1.2s ease;
+}
+.about-text h2 {
+  font-size: 2.4rem;
+  color: #222;
+  margin-bottom: 15px;
+}
+.about-text p {
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 10px;
+}
+.about-image {
+  flex: 1 1 45%;
+  animation: fadeIn 1.4s ease;
+}
+.about-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: 0.4s ease;
+}
+.about-image img:hover {
+  transform: scale(1.03);
+}
+
+/* GALLERY SECTIONS */
+.gallery-section {
+  padding: 100px 8%;
+  text-align: center;
+  background: #fff;
+}
+.gallery-section.drinks-gallery {
+  background: linear-gradient(90deg, #fff4d4, #ffe1a8);
+}
+.section-title {
+  font-size: 2.6rem;
+  color: #222;
+  margin-bottom: 50px;
+  position: relative;
+}
+.section-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #ffcc00;
+  margin: 10px auto;
+  border-radius: 2px;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+.gallery-item {
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-item img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.gallery-item:hover img {
+  transform: scale(1.08);
+}
+.gallery-item:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* REVIEWS SECTION */
+.reviews {
+  background: #fff8e1;
+  padding: 100px 10%;
+  text-align: center;
+}
+.reviews-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+.review-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 320px;
+  transition: transform 0.3s ease;
+}
+.review-card:hover {
+  transform: translateY(-8px);
+}
+.review-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.review-card h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 12px;
+}
+.review-card p {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* EVENTS SECTION */
+.events {
+  position: relative;
+  background: url("{% static 'images/event-bg.jpg' %}") center/cover no-repeat fixed;
+  color: #fff;
+  text-align: center;
+  padding: 160px 10%;
+}
+.events .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+.events-content {
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 2s ease;
+}
+.events h2 {
+  font-size: 2.8rem;
+  color: #ffcc00;
+  margin-bottom: 25px;
+}
+.events p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+.btn-secondary {
+  background: #ffcc00;
+  color: #000;
+  padding: 14px 36px;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn-secondary:hover {
+  background: #e6b800;
+  transform: translateY(-3px);
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>
+
+{% endblock %}

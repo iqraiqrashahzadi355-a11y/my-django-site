@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<section class="about">
+    <div class="about-container">
+        <div class="about-text">
+            <h2>About Little Lemon 🍋</h2>
+            <p>
+                Welcome to <strong>Little Lemon</strong>, a place where taste meets tradition.  
+                We started with a simple goal: to serve delicious, fresh, and healthy meals 
+                that bring joy to every table.
+            </p>
+            <p>
+                Our chefs carefully craft each dish with love, using the finest ingredients.  
+                Whether you’re here for a family dinner, a quick lunch, or a celebration,  
+                we promise a delightful experience every time.
+            </p>
+            <p>
+                <em>“Good food, good mood – that’s the Little Lemon way!”</em>
+            </p>
+        </div>
+        <div class="about-img">
+            <img src="{% static 'images/restaurant.jpg' %}" alt="Little Lemon Restaurant">
+        </div>
+    </div>
+</section>
+
+<style>
+.about {
+    padding: 80px 8%;
+    background: #fffdf8;
+}
+
+.about-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #222;
+    font-weight: 800;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.about-img {
+    flex: 1;
+    text-align: center;
+}
+
+.about-img img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+</style>
+{% endblock %}

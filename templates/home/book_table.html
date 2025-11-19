@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book a Table | Little Lemon{% endblock %}
+
+{% block content %}
+<section class="booking-hero">
+    <div class="overlay"></div>
+    <div class="hero-text">
+        <h1>Book Your Table at Little Lemon</h1>
+        <p>Reserve your spot and enjoy an unforgettable Mediterranean dining experience.</p>
+    </div>
+</section>
+
+<section class="booking-form-section">
+    <h2 class="section-title">Reserve Your Table</h2>
+
+    <!-- Success message -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Booking Form -->
+    <form method="POST" class="booking-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="form-group">
+            {{ form.name.errors }}
+            {{ form.name|add_class:"form-control"|attr:"placeholder:Your Full Name" }}
+        </div>
+
+        <div class="form-group">
+            {{ form.email.errors }}
+            {{ form.email|add_class:"form-control"|attr:"placeholder:Your Email Address" }}
+        </div>
+
+        <div class="form-group">
+            {{ form.phone.errors }}
+            {{ form.phone|add_class:"form-control"|attr:"placeholder:Your Phone Number" }}
+        </div>
+
+        <div class="form-group">
+            {{ form.guests.errors }}
+            {{ form.guests|add_class:"form-control"|attr:"placeholder:Number of Guests|min:1" }}
+        </div>
+
+        <div class="form-group">
+            {{ form.date.errors }}
+            {{ form.date|add_class:"form-control" }}
+        </div>
+
+        <div class="form-group">
+            {{ form.time.errors }}
+            {{ form.time|add_class:"form-control" }}
+        </div>
+
+        <div class="form-group">
+            {{ form.message.errors }}
+            {{ form.message|add_class:"form-control"|attr:"placeholder:Special Requests (Optional)" }}
+        </div>
+
+        <button type="submit">Book Now</button>
+    </form>
+</section>
+
+<style>
+.booking-hero {
+    position: relative;
+    background: url("{% static 'images/restaurant-table.jpg' %}") center/cover no-repeat;
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+.booking-hero .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+}
+.booking-hero .hero-text {
+    position: relative;
+    z-index: 2;
+}
+.booking-hero h1 {
+    font-size: 3rem;
+    color: #ffcc00;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+}
+.booking-form-section {
+    background: #fffaf0;
+    padding: 80px 8%;
+    text-align: center;
+}
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #222;
+}
+.booking-form {
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.form-group input,
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+}
+.booking-form button {
+    background: #ffcc00;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    padding: 15px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.booking-form button:hover {
+    background: #e6b800;
+}
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+</style>
+{% endblock %}

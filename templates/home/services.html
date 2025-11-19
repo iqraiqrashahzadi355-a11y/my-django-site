@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Services{% endblock %}
+
+{% block content %}
+<section class="services">
+    <h2>Our Services</h2>
+    <p class="subtitle">We provide top-notch dining experience and services</p>
+
+    <div class="service-grid">
+        <div class="service-card">
+            <img src="{% static 'images/service1.jpg' %}" alt="Fine Dining">
+            <h3>🍽 Fine Dining</h3>
+            <p>Enjoy a world-class dining experience with our elegant ambiance and professional staff.</p>
+        </div>
+        <div class="service-card">
+            <img src="{% static 'images/service2.jpg' %}" alt="Online Ordering">
+            <h3>📱 Online Ordering</h3>
+            <p>Order your favorite dishes online and get them delivered hot and fresh to your doorstep.</p>
+        </div>
+        <div class="service-card">
+            <img src="{% static 'images/service3.jpg' %}" alt="Catering">
+            <h3>🎉 Catering Services</h3>
+            <p>We cater to events of all sizes with customized menus tailored to your needs.</p>
+        </div>
+        <div class="service-card">
+            <img src="{% static 'images/service4.jpg' %}" alt="Chef’s Special">
+            <h3>👨‍🍳 Chef’s Specials</h3>
+            <p>Our chefs create exclusive seasonal dishes with fresh ingredients just for you.</p>
+        </div>
+    </div>
+</section>
+
+<style>
+.services {
+    padding: 60px 5%;
+    text-align: center;
+    background: #fffaf5;
+}
+.services h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #222;
+}
+.services .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 40px;
+}
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+}
+.service-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+.service-card:hover {
+    transform: translateY(-8px);
+}
+.service-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.service-card h3 {
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    color: #ff6600;
+}
+.service-card p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+</style>
+{% endblock %}
